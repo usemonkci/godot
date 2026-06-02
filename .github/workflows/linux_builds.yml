@@ -24,7 +24,7 @@ env:
 jobs:
   build-linux:
     # Stay one LTS before latest to increase portability of Linux artifacts.
-    runs-on: ubuntu-22.04
+    runs-on: monkci-ubuntu-24.04-32
     name: ${{ matrix.name }}
     timeout-minutes: 120
     strategy:
@@ -123,9 +123,9 @@ jobs:
       - name: Setup dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install libwayland-bin  # TODO: Figure out somehow how to embed this one.
+          sudo apt-get install -y libwayland-bin  # TODO: Figure out somehow how to embed this one.
           if [ "${{ matrix.proj-test }}" == "true" -o "${{ matrix.proj-export }}" == "true" ]; then
-            sudo apt-get install mesa-vulkan-drivers
+            sudo apt-get install -y mesa-vulkan-drivers
           fi
 
       - name: Free disk space on runner
